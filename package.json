@@ -6,6 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "MIT"
+  "author": "thinkholic <mailtokasun@gmail.com> (https://github.com/thinkholic)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/99xt/js-input-validator.git"
+  },
+  "homepage": "https://github.com/99xt/js-input-validator#readme",
+  "bugs": {
+    "url": "https://github.com/99xt/js-input-validator/issues"
+  },
+  "license": "MIT",
 }
