@@ -38,14 +38,36 @@ function validateLongitude(longitude) {
   return null;
 }
 
+function validateUrl(url) {
+  const patt = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+  if (!patt.test(url)) return "Invalid URL!";
+
+  return null;
+}
+
+function validateArray(arr) {
+  if (!Array.isArray(arr)) return "Invalid data type!"
+
+  return null;
+}
+
 function validateType(value, type) {
   if (!value || !type) return null;
 
   if (type === "email") return validateEmail(value);
   if (type === "latitude") return validateLatitude(value);
   if (type === "longitude") return validateLongitude(value);
+  if (type === "url") return validateUrl(value);
+  if (type === "array") return validateArray(value);
 
   if (typeof value !== type) return "Invalid data type!";
+
+  return null;
+}
+
+function validateTypes(value, types=[]) {
+  if (!value) return null;
+  if (!types.includes(value)) return "Invalid data type!";
 
   return null;
 }
@@ -97,7 +119,8 @@ class Validator {
       const attr = schema[field];
       const value = sanitize(values[field]);
 
-      if (value && attr.type) errorMessages.push(validateType(value, attr.type));
+      if (value && attr.type && typeof attr.type === "string") errorMessages.push(validateType(value, attr.type));
+      if (value && attr.type && typeof attr.type === "object" && Array.isArray(attr.type)) errorMessages.push(validateTypes(value, attr.type));
       if (value && attr.length) errorMessages.push(validateLength(value, attr.length));
       if (value && (attr.min || attr.max) ) errorMessages.push(validateMinMax(value, attr.min, attr.max));
       if (value && attr.validate) errorMessages.push(validateWithCustomMethod(value, values, attr.validate));

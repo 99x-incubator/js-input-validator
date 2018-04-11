@@ -13,7 +13,7 @@ const schema = {
   },
   field2: {
     name: "field 2",
-    type: "string",
+    type: ["string", "number"],
     required: true,
     min: 3,
     validate: function(value, values={}) {
