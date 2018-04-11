@@ -8,6 +8,11 @@ Array.prototype.drop = function(deleteValue) {
   return this;
 };
 
+Object.prototype.isEmpty = function() {
+  const obj = this;
+  return Object.keys(obj).length === 0;
+}
+
 function sanitize(value=null) {
   if (!value) return null;
   if (typeof value !== "string") return value;
@@ -103,12 +108,11 @@ function validateWithCustomMethod(value, values, validate) {
 }
 
 class Validator {
-
   constructor(schema) {
     this.schema = schema;
   }
 
-  run(values) {
+  validate(values) {
     const schema = this.schema;
     const errors = {};
 
@@ -134,7 +138,16 @@ class Validator {
 
     });
 
-    return errors;
+    return errors;    
+  }
+
+  run(values={}) {
+    return this.validate(values);
+  }
+
+  isValid(values) {
+    const errors = this.validate(values);
+    return errors.isEmpty();
   }
 }
 
