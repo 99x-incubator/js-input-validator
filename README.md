@@ -1,6 +1,6 @@
 # js-input-validator
 
-[![npm (scoped)](https://img.shields.io/npm/v/js-input-validator.svg)](https://www.npmjs.com/package/js-input-validator)
+[![npm](https://img.shields.io/npm/v/js-input-validator.svg)](https://www.npmjs.com/package/js-input-validator)
 [![license](https://img.shields.io/github/license/99xt/js-input-validator.svg)](https://github.com/99xt/js-input-validator/blob/master/LICENSE)
 
 Simple JS Input Validator
@@ -32,9 +32,12 @@ const schema = {
   },
   field2: {
     name: "field 2",
-    type: "string",
+    type: ["string", "number"],
     required: true,
-    min: 3
+    min: 3,
+    validate: function(value, values={}) {
+      return true;
+    }
   },
   field3: {
     name: "field 3",
@@ -45,16 +48,27 @@ const schema = {
   },
   field4: {
     name: "field 4",
-    type: "string"
+    type: "email"
   }
 };
 
-// Run validation
-const values = {
+// Values
+const errors = new Validator(schema).run({
   field1: "s",
-  field3: 4
-};
+  field3: 4,
+  field4: "sasadsa@adsa"
+});
+
+// Run Validator with `run` method and get error object
 const errors = new Validator(schema).run(values);
+
+// Run Validator with `isValid` method
+const data = new Validator(schema);
+if (data.isValid()) {
+  // Valid
+} else {
+  // Invalid
+}
 ```
 
 ## License
