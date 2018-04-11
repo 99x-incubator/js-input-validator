@@ -110,11 +110,12 @@ function validateWithCustomMethod(value, values, validate) {
 class Validator {
   constructor(schema) {
     this.schema = schema;
+    this.errors = null;
   }
 
   validate(values={}) {
     const schema = this.schema;
-    const errors = {};
+    this.errors = {};
 
     const fields = Object.keys(schema);
     fields.forEach(function(field) {
@@ -133,21 +134,26 @@ class Validator {
 
       errorMessages.drop(null);
       if (errorMessages && errorMessages.length > 0) {
-        errors[field] = errorMessages;
+        this.errors[field] = errorMessages;
       }
 
     });
 
-    return errors;    
+    return this.errors;
   }
 
-  run(values) {
-    return this.validate(values);
+  run(values, list=false) {
+    const errors = this.validate(values)
+    return list ? Object.values(errors) : errors;
   }
 
   isValid(values) {
     const errors = this.validate(values);
     return errors.isEmpty();
+  }
+
+  getErrors() {
+    return this.errors;
   }
 }
 
