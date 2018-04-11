@@ -15,7 +15,10 @@ const schema = {
     name: "field 2",
     type: "string",
     required: true,
-    min: 3
+    min: 3,
+    validate: function(value, values={}) {
+      return true;
+    }
   },
   field3: {
     name: "field 3",
@@ -26,13 +29,14 @@ const schema = {
   },
   field4: {
     name: "field 4",
-    type: "string"
+    type: "email"
   }
 };
 
 const errors = new Validator(schema).run({
   field1: "s",
-  field3: 4
+  field3: 4,
+  field4: "sasadsa@adsa"
 });
 
 console.log(errors);

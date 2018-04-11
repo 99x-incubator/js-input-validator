@@ -15,6 +15,41 @@ function sanitize(value=null) {
   return value.trim();
 }
 
+function validateEmail(email) {
+  const patt = new RegExp(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+  if (!patt.test(email)) return "Invalid email address";
+
+  return null;
+}
+
+function validateLatitude(latitude) {
+  if (!(isFinite(latitude) && Math.abs(latitude) <= 90))
+      return "Invalid latitude!";
+
+  return null;
+}
+
+function validateLongitude(longitude) {
+   if (!(isFinite(longitude) && Math.abs(longitude) <= 180))
+      return "Invalid longitude!";
+
+  return null;
+}
+
+function validateType(value, type) {
+  if (!value || !type) return null;
+
+  if (type === "email") return validateEmail(value);
+  if (type === "latitude") return validateLatitude(value);
+  if (type === "longitude") return validateLongitude(value);
+
+  if (typeof value !== type) return "Invalid data type!";
+
+  return null;
+}
+
 function validateLength(value, length) {
   const charLength = String(value).length;
 
@@ -37,6 +72,14 @@ function validateMinMax(value, min, max) {
   return null;
 }
 
+function validateWithCustomMethod(value, values, validate) {
+  if (!validate || typeof validate !== "function") return null;
+
+  if (!validate(value, values)) return "Invalid";
+
+  return null;
+}
+
 class Validator {
 
   constructor(schema) {
@@ -54,9 +97,10 @@ class Validator {
       const attr = schema[field];
       const value = sanitize(values[field]);
 
-      if (value && attr.type && attr.type !== typeof value) errorMessages.push("Invalid data type!");
+      if (value && attr.type) errorMessages.push(validateType(value, attr.type));
       if (value && attr.length) errorMessages.push(validateLength(value, attr.length));
       if (value && (attr.min || attr.max) ) errorMessages.push(validateMinMax(value, attr.min, attr.max));
+      if (value && attr.validate) errorMessages.push(validateWithCustomMethod(value, values, attr.validate));
 
       if (attr.required && !value) errorMessages.push(`${attr.name} is required!`);
 

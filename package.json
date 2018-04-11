@@ -1,6 +1,6 @@
 {
   "name": "js-input-validator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple JS Input Validator",
   "main": "src/index.js",
   "scripts": {
@@ -15,5 +15,5 @@
   "bugs": {
     "url": "https://github.com/99xt/js-input-validator/issues"
   },
-  "license": "MIT",
+  "license": "MIT"
 }
