@@ -112,7 +112,7 @@ class Validator {
     this.schema = schema;
   }
 
-  validate(values) {
+  validate(values={}) {
     const schema = this.schema;
     const errors = {};
 
@@ -141,7 +141,7 @@ class Validator {
     return errors;    
   }
 
-  run(values={}) {
+  run(values) {
     return this.validate(values);
   }
 
