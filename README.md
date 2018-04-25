@@ -1,7 +1,7 @@
 # js-input-validator
 
 [![npm](https://img.shields.io/npm/v/js-input-validator.svg)](https://www.npmjs.com/package/js-input-validator)
-[![license](https://img.shields.io/github/license/99xt/js-input-validator.svg)](https://github.com/99xt/js-input-validator/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/99xt-incubator/js-input-validator.svg)](https://github.com/99xt-incubator/js-input-validator/blob/master/LICENSE)
 
 Simple JS Input Validator
 
