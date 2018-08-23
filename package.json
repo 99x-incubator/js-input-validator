@@ -1,6 +1,6 @@
 {
   "name": "js-input-validator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple JS Input Validator",
   "main": "dist/js-input-validator.js",
   "scripts": {
