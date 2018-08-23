@@ -2,23 +2,30 @@
   "name": "js-input-validator",
   "version": "0.0.2",
   "description": "Simple JS Input Validator",
-  "main": "src/index.js",
+  "main": "dist/js-input-validator.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha tests/index.js"
+    "test": "./node_modules/.bin/_mocha tests/index.js",
+    "build": "./node_modules/.bin/webpack"
   },
   "author": "thinkholic <mailtokasun@gmail.com> (https://github.com/thinkholic)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/99xt/js-input-validator.git"
+    "url": "git+https://github.com/99xt-incubator/js-input-validator.git"
   },
-  "homepage": "https://github.com/99xt/js-input-validator#readme",
+  "homepage": "https://github.com/99xt-incubator/js-input-validator#readme",
   "bugs": {
-    "url": "https://github.com/99xt/js-input-validator/issues"
+    "url": "https://github.com/99xt-incubator/js-input-validator/issues"
   },
   "license": "MIT",
   "devDependencies": {
+    "babel": "6.3.13",
+    "babel-core": "6.1.18",
+    "babel-loader": "6.1.0",
+    "babel-plugin-add-module-exports": "0.1.2",
+    "babel-preset-es2015": "6.3.13",
     "chai": "^4.1.2",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "webpack": "1.12.9"
   },
   "dependencies": {}
 }

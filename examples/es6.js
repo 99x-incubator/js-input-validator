@@ -1,4 +1,4 @@
-const Validator = require("../src/");
+const Validator = require("../dist/js-input-validator");
 
 const schema = {
   field1: {
