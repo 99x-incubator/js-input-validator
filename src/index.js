@@ -1,3 +1,4 @@
+// jsPrototype
 Array.prototype.drop = function(deleteValue) {
   for (var i = 0; i < this.length; i++) {
     if (this[i] == deleteValue) {         
@@ -13,6 +14,7 @@ Object.prototype.isEmpty = function() {
   return Object.keys(obj).length === 0;
 }
 
+// Utils.
 function sanitize(value=null) {
   if (!value) return null;
   if (typeof value !== "string") return value;
@@ -107,6 +109,8 @@ function validateWithCustomMethod(value, values, validate) {
   return null;
 }
 
+// Validator
+
 class Validator {
   constructor(schema) {
     this.schema = schema;
@@ -118,7 +122,7 @@ class Validator {
     this.errors = {};
 
     const fields = Object.keys(schema);
-    fields.forEach(function(field) {
+    fields.forEach((field) => {
       const errorMessages = [];
 
       const attr = schema[field];
