@@ -1,30 +1,27 @@
-var webpack = require('webpack');
 var path = require('path');
 var libraryName = 'js-input-validator';
 var outputFile = libraryName + '.js';
 
 var config = {
-  entry: __dirname + '/src/index.js',
+  mode: 'development',
+  entry: './src/index.js',
   devtool: 'source-map',
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: 'this'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.jsx|\.js)$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
       }
     ]
-  },
-  resolve: {
-    root: path.resolve('./src'),
-    extensions: ['', '.js']
   }
 };
 
