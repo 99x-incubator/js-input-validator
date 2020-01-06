@@ -101,7 +101,115 @@ return /******/ (function(modules) { // webpackBootstrap
   !*** ./src/index.js ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+var Validator = __webpack_require__(/*! ./validator */ "./src/validator.js");
+
+module.exports = Validator;
+
+/***/ }),
+
+/***/ "./src/utils.js":
+/*!**********************!*\
+  !*** ./src/utils.js ***!
+  \**********************/
+/*! exports provided: sanitize, validateEmail, validateLatitude, validateLongitude, validateUrl, validateArray, validateType, validateTypes, validateLength, validateMinMax, validateWithCustomMethod */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sanitize", function() { return sanitize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateEmail", function() { return validateEmail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateLatitude", function() { return validateLatitude; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateLongitude", function() { return validateLongitude; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateUrl", function() { return validateUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateArray", function() { return validateArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateType", function() { return validateType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateTypes", function() { return validateTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateLength", function() { return validateLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateMinMax", function() { return validateMinMax; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateWithCustomMethod", function() { return validateWithCustomMethod; });
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+// Utils.
+function sanitize() {
+  var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  if (!value) return null;
+  if (typeof value !== "string") return value;
+  return value.trim();
+}
+function validateEmail(email) {
+  var patt = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  if (!patt.test(email)) return "Invalid email address";
+  return null;
+}
+function validateLatitude(latitude) {
+  if (!(isFinite(latitude) && Math.abs(latitude) <= 90)) return "Invalid latitude!";
+  return null;
+}
+function validateLongitude(longitude) {
+  if (!(isFinite(longitude) && Math.abs(longitude) <= 180)) return "Invalid longitude!";
+  return null;
+}
+function validateUrl(url) {
+  var patt = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+  if (!patt.test(url)) return "Invalid URL!";
+  return null;
+}
+function validateArray(arr) {
+  if (!Array.isArray(arr)) return "Invalid data type!";
+  return null;
+}
+function validateType(value, type) {
+  if (!value || !type) return null;
+  if (type === "email") return validateEmail(value);
+  if (type === "latitude") return validateLatitude(value);
+  if (type === "longitude") return validateLongitude(value);
+  if (type === "url") return validateUrl(value);
+  if (type === "array") return validateArray(value);
+  if (_typeof(value) !== type) return "Invalid data type!";
+  return null;
+}
+function validateTypes(value) {
+  var types = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  if (!value) return null;
+  if (!types.includes(value)) return "Invalid data type!";
+  return null;
+}
+function validateLength(value, length) {
+  var charLength = String(value).length;
+  if (typeof length === "number" && charLength !== length) return "Invalid character size!";
+
+  if (_typeof(length) === "object") {
+    if (length.min && charLength < length.min) return "Invalid character size! (min)";
+    if (length.max && charLength < length.max) return "Invalid character size! (max)";
+  }
+
+  return null;
+}
+function validateMinMax(value, min, max) {
+  if (typeof value !== "number") return null;
+  if (min && !max && value < min) return "Should be greater than ".concat(min, "!");
+  if (!min && max && value > max) return "Should be less than ".concat(max, "!");
+  if (min && max && (value > max || value < min)) return "Should be between ".concat(min, " and ").concat(max, "!");
+  return null;
+}
+function validateWithCustomMethod(value, values, validate) {
+  if (!validate || typeof validate !== "function") return null;
+  if (!validate(value, values)) return "Invalid";
+  return null;
+}
+
+/***/ }),
+
+/***/ "./src/validator.js":
+/*!**************************!*\
+  !*** ./src/validator.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -109,9 +217,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var Utils = __webpack_require__(/*! ./utils */ "./src/utils.js"); // jsPrototype
 
-// jsPrototype
+
 Array.prototype.drop = function (deleteValue) {
   for (var i = 0; i < this.length; i++) {
     if (this[i] == deleteValue) {
@@ -126,86 +234,7 @@ Array.prototype.drop = function (deleteValue) {
 Object.prototype.isEmpty = function () {
   var obj = this;
   return Object.keys(obj).length === 0;
-}; // Utils.
-
-
-function sanitize() {
-  var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  if (!value) return null;
-  if (typeof value !== "string") return value;
-  return value.trim();
-}
-
-function validateEmail(email) {
-  var patt = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-  if (!patt.test(email)) return "Invalid email address";
-  return null;
-}
-
-function validateLatitude(latitude) {
-  if (!(isFinite(latitude) && Math.abs(latitude) <= 90)) return "Invalid latitude!";
-  return null;
-}
-
-function validateLongitude(longitude) {
-  if (!(isFinite(longitude) && Math.abs(longitude) <= 180)) return "Invalid longitude!";
-  return null;
-}
-
-function validateUrl(url) {
-  var patt = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-  if (!patt.test(url)) return "Invalid URL!";
-  return null;
-}
-
-function validateArray(arr) {
-  if (!Array.isArray(arr)) return "Invalid data type!";
-  return null;
-}
-
-function validateType(value, type) {
-  if (!value || !type) return null;
-  if (type === "email") return validateEmail(value);
-  if (type === "latitude") return validateLatitude(value);
-  if (type === "longitude") return validateLongitude(value);
-  if (type === "url") return validateUrl(value);
-  if (type === "array") return validateArray(value);
-  if (_typeof(value) !== type) return "Invalid data type!";
-  return null;
-}
-
-function validateTypes(value) {
-  var types = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  if (!value) return null;
-  if (!types.includes(value)) return "Invalid data type!";
-  return null;
-}
-
-function validateLength(value, length) {
-  var charLength = String(value).length;
-  if (typeof length === "number" && charLength !== length) return "Invalid character size!";
-
-  if (_typeof(length) === "object") {
-    if (length.min && charLength < length.min) return "Invalid character size! (min)";
-    if (length.max && charLength < length.max) return "Invalid character size! (max)";
-  }
-
-  return null;
-}
-
-function validateMinMax(value, min, max) {
-  if (typeof value !== "number") return null;
-  if (min && !max && value < min) return "Should be greater than ".concat(min, "!");
-  if (!min && max && value > max) return "Should be less than ".concat(max, "!");
-  if (min && max && (value > max || value < min)) return "Should be between ".concat(min, " and ").concat(max, "!");
-  return null;
-}
-
-function validateWithCustomMethod(value, values, validate) {
-  if (!validate || typeof validate !== "function") return null;
-  if (!validate(value, values)) return "Invalid";
-  return null;
-} // Validator
+}; // Validator
 
 
 var Validator =
@@ -230,12 +259,12 @@ function () {
       fields.forEach(function (field) {
         var errorMessages = [];
         var attr = schema[field];
-        var value = sanitize(values[field]);
-        if (value && attr.type && typeof attr.type === "string") errorMessages.push(validateType(value, attr.type));
-        if (value && attr.type && _typeof(attr.type) === "object" && Array.isArray(attr.type)) errorMessages.push(validateTypes(value, attr.type));
-        if (value && attr.length) errorMessages.push(validateLength(value, attr.length));
-        if (value && (attr.min || attr.max)) errorMessages.push(validateMinMax(value, attr.min, attr.max));
-        if (value && attr.validate) errorMessages.push(validateWithCustomMethod(value, values, attr.validate));
+        var value = Utils.sanitize(values[field]);
+        if (value && attr.type && typeof attr.type === "string") errorMessages.push(Utils.validateType(value, attr.type));
+        if (value && attr.type && _typeof(attr.type) === "object" && Array.isArray(attr.type)) errorMessages.push(Utils.validateTypes(value, attr.type));
+        if (value && attr.length) errorMessages.push(Utils.validateLength(value, attr.length));
+        if (value && (attr.min || attr.max)) errorMessages.push(Utils.validateMinMax(value, attr.min, attr.max));
+        if (value && attr.validate) errorMessages.push(Utils.validateWithCustomMethod(value, values, attr.validate));
         if (attr.required && !value) errorMessages.push("".concat(attr.name, " is required!"));
         errorMessages.drop(null);
 
