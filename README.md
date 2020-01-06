@@ -71,6 +71,30 @@ if (data.isValid()) {
 }
 ```
 
+## Contributing
+Please refer the code of conduct before contributing.
+
+1. Clone the project
+```
+git clone https://github.com/99xt-incubator/js-input-validator.git
+```
+
+2. Install the node modules 
+```
+cd js-input-validator/
+npm install
+```
+
+3. Build the project
+```
+npm run build
+```
+
+4. Test against the example file 
+```
+node ./examples/es6.js 
+```
+
 ## License
 
 MIT
