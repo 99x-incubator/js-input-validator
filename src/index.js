@@ -1,3 +1,14 @@
+// String constants
+const Consts = {
+  invalidEmail: "Invalid email address",
+  invalidLatitude: "Invalid latitude!",
+  invalidLongitude: "Invalid longitude!",
+  invalidUrl: "Invalid URL!",
+  invalidDataType: "Invalid data type!",
+  invaildCharSize: "Invalid character size!",
+  invaild: "Invalid"
+}
+
 // jsPrototype
 Array.prototype.drop = function(deleteValue) {
   for (var i = 0; i < this.length; i++) {
@@ -26,34 +37,34 @@ function validateEmail(email) {
   const patt = new RegExp(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
-  if (!patt.test(email)) return "Invalid email address";
+  if (!patt.test(email)) return Consts.invalidEmail;
 
   return null;
 }
 
 function validateLatitude(latitude) {
   if (!(isFinite(latitude) && Math.abs(latitude) <= 90))
-      return "Invalid latitude!";
+      return Consts.invalidLatitude;
 
   return null;
 }
 
 function validateLongitude(longitude) {
    if (!(isFinite(longitude) && Math.abs(longitude) <= 180))
-      return "Invalid longitude!";
+      return Consts.invalidLongitude;
 
   return null;
 }
 
 function validateUrl(url) {
   const patt = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-  if (!patt.test(url)) return "Invalid URL!";
+  if (!patt.test(url)) return Consts.invalidUrl;
 
   return null;
 }
 
 function validateArray(arr) {
-  if (!Array.isArray(arr)) return "Invalid data type!"
+  if (!Array.isArray(arr)) return Consts.invalidDataType;
 
   return null;
 }
@@ -67,14 +78,14 @@ function validateType(value, type) {
   if (type === "url") return validateUrl(value);
   if (type === "array") return validateArray(value);
 
-  if (typeof value !== type) return "Invalid data type!";
+  if (typeof value !== type) return Consts.invalidDataType;
 
   return null;
 }
 
 function validateTypes(value, types=[]) {
   if (!value) return null;
-  if (!types.includes(value)) return "Invalid data type!";
+  if (!types.includes(value)) return Consts.invalidDataType;
 
   return null;
 }
@@ -82,11 +93,11 @@ function validateTypes(value, types=[]) {
 function validateLength(value, length) {
   const charLength = String(value).length;
 
-  if (typeof length === "number" && charLength !== length) return `Invalid character size!`;
+  if (typeof length === "number" && charLength !== length) return Consts.invaildCharSize;
 
   if (typeof length === "object") {
-    if (length.min && charLength < length.min) return "Invalid character size! (min)";
-    if (length.max && charLength < length.max) return "Invalid character size! (max)";
+    if (length.min && charLength < length.min) return Consts.invaildCharSize + " (min)";
+    if (length.max && charLength < length.max) return Consts.invaildCharSize + " (max)";
   }
 
   return null;
@@ -104,7 +115,7 @@ function validateMinMax(value, min, max) {
 function validateWithCustomMethod(value, values, validate) {
   if (!validate || typeof validate !== "function") return null;
 
-  if (!validate(value, values)) return "Invalid";
+  if (!validate(value, values)) return Consts.invaild;
 
   return null;
 }
