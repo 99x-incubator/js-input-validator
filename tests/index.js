@@ -1,7 +1,7 @@
 const chai = require('chai');  
 const expect = chai.expect;
 
-var Validator = require("../src");
+const Validator = require("../src/");
 
 describe("JS Input Validator", function() {
 	describe("Run()", function() {
