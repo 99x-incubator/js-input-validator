@@ -1,7 +1,7 @@
 const chai = require('chai');  
 const expect = chai.expect;
 
-const Validator = require("../src/");
+var Validator = require("../src");
 
 describe("JS Input Validator", function() {
 	describe("Run()", function() {
@@ -45,9 +45,18 @@ describe("JS Input Validator", function() {
 		};
 
 		it("should validate input data object against validation schema and return error object", function() {
-			// const errors = new Validator(schema).run(values);
-			// TODO: Fix
-			expect(true).to.equal(true);
+			const errors = new Validator(schema).run(values);
+
+			const expectedErrors = {
+			  field1: [ 'Invalid data type!', 'Invalid character size! (max)' ],
+			  field2: [ 'field 2 is required!' ],
+			  field4: [ 'Invalid email address' ]
+			}
+
+			expect(errors.field1[0]).to.equal(expectedErrors.field1[0]);
+			expect(errors.field1[1]).to.equal(expectedErrors.field1[1]);
+			expect(errors.field2[0]).to.equal(expectedErrors.field2[0]);
+			expect(errors.field4[0]).to.equal(expectedErrors.field4[0]);
 		});
 	});
 });
