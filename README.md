@@ -71,6 +71,35 @@ if (data.isValid()) {
 }
 ```
 
+## Contributing
+Please refer the code of conduct before contributing.
+
+1. Fork the project
+Click the fork button to fork your own copy of the project.
+
+![Fork button](img/fork_button.jpg)
+
+2. Clone the project
+```
+$ git clone https://github.com/<git handle>/js-input-validator.git
+```
+
+3. Install the node modules 
+```
+$ cd js-input-validator/
+$ npm install
+```
+
+4. Build the project
+```
+$ npm run build
+```
+
+5. Run the test script
+```
+$ npm run test 
+```
+
 ## License
 
 MIT
