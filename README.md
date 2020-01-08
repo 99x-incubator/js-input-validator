@@ -74,25 +74,30 @@ if (data.isValid()) {
 ## Contributing
 Please refer the code of conduct before contributing.
 
-1. Clone the project
+1. Fork the project
+Click the fork button to fork your own copy of the project.
+
+![Fork button](img/fork_button.jpg)
+
+2. Clone the project
 ```
-git clone https://github.com/99xt-incubator/js-input-validator.git
+$ git clone https://github.com/<git handle>/js-input-validator.git
 ```
 
-2. Install the node modules 
+3. Install the node modules 
 ```
-cd js-input-validator/
-npm install
-```
-
-3. Build the project
-```
-npm run build
+$ cd js-input-validator/
+$ npm install
 ```
 
-4. Test against the example file 
+4. Build the project
 ```
-node ./examples/es6.js 
+$ npm run build
+```
+
+5. Run the test script
+```
+$ npm run test 
 ```
 
 ## License
